@@ -1,2 +1,2 @@
 joi
-express-error-handler
+express-async-errors

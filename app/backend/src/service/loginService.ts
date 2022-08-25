@@ -9,11 +9,17 @@ const schema = Joi.object({
   email: Joi.string()
     .email()
     .max(255)
-    .required(),
+    .required()
+    .messages({
+      'string.empty': 'All fields must be filled',
+    }),
 
   password: Joi.string()
     .min(6)
-    .required(),
+    .required()
+    .messages({
+      'string.empty': 'All fields must be filled',
+    }),
 });
 
 export default class LoginService implements ValidateBody {
