@@ -2,13 +2,15 @@ import { NextFunction, Request, Response } from 'express';
 
 const errors: Record<string, number> = {
   unexistUserError: 400,
-  validationError: 400,
+  invalidError: 401,
+  'string.empty': 400,
 };
 
-interface Ierror {
+interface Ierror{
   name: string;
   message: string;
   isJoi: object
+  details: Array<any>
 }
 
 const errorHandler = (
@@ -17,9 +19,15 @@ const errorHandler = (
   res: Response,
   _next: NextFunction,
 ) => {
-  const status = errors[error.name];
+  // console.log(error);
 
-  if (error.isJoi) return res.status(400).json({ message: error.message });
+  if (error.isJoi) {
+    const statusJoi = errors[error.details[0].type];
+
+    return res.status(statusJoi).json({ message: error.message });
+  }
+
+  const status = errors[error.name];
 
   if (!status) return res.status(500).json({ message: error.message });
 

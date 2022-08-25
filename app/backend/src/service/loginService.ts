@@ -2,7 +2,7 @@ import * as Joi from 'joi';
 import Login, { ValidateBody } from '../interface/loginInterface';
 import Users from '../database/models/users';
 import authService from './authService';
-import throwUnexistUserError from '../middlewares/utils';
+import { throwInvalidError } from '../middlewares/utils';
 import passwordService from './passwordService';
 
 const schema = Joi.object({
@@ -15,7 +15,7 @@ const schema = Joi.object({
     }),
 
   password: Joi.string()
-    .min(6)
+    .min(7)
     .required()
     .messages({
       'string.empty': 'All fields must be filled',
@@ -31,11 +31,13 @@ export default class LoginService implements ValidateBody {
     const user = await this.model.findOne({
       where: { email: body.email } });
 
-    if (!user || undefined) return throwUnexistUserError('User not found');
+    console.log(user);
+
+    if (!user || undefined) return throwInvalidError('Incorrect email or password');
 
     const checkPassword = await passwordService.compareEncrypt(body.password, user.password);
 
-    if (!checkPassword) return throwUnexistUserError('User not found');
+    if (!checkPassword) return throwInvalidError('Incorrect email or password');
 
     const result = await authService.token(user?.email);
 
