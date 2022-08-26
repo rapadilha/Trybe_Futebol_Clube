@@ -12,4 +12,16 @@ export default class LoginController {
       next(error);
     }
   }
+
+  async get(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { authorization } = req.headers;
+      if (authorization !== undefined) {
+        const role = await this.loginService.getRole(authorization);
+        res.status(200).json(role);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 }

@@ -1,6 +1,6 @@
-const throwUnexistUserError = (message: string): string => {
+const throwInvalidTokenError = (message: string): string => {
   const err = new Error(message);
-  err.name = 'unexistUserError';
+  err.name = 'invalidTokenError';
   throw err;
 };
 
@@ -12,4 +12,4 @@ const throwInvalidError = (message: string): string => {
 
 export { throwInvalidError };
 
-export default throwUnexistUserError;
+export default throwInvalidTokenError;

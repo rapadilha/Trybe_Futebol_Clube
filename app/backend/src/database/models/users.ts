@@ -5,6 +5,8 @@ class Users extends Model {
   public id: number;
   public email:string;
   public password:string;
+  public role:string;
+  public username:string;
 }
 
 Users.init({

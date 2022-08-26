@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 const errors: Record<string, number> = {
-  unexistUserError: 400,
+  invalidTokenError: 400,
   invalidError: 401,
   'string.empty': 400,
 };

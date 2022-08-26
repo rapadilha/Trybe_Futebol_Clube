@@ -1,5 +1,5 @@
 import * as Joi from 'joi';
-import Login, { ValidateBody } from '../interface/loginInterface';
+import Login, { ValidateBody, Decoded } from '../interface/loginInterface';
 import Users from '../database/models/users';
 import authService from './authService';
 import { throwInvalidError } from '../middlewares/utils';
@@ -31,8 +31,6 @@ export default class LoginService implements ValidateBody {
     const user = await this.model.findOne({
       where: { email: body.email } });
 
-    console.log(user);
-
     if (!user || undefined) return throwInvalidError('Incorrect email or password');
 
     const checkPassword = await passwordService.compareEncrypt(body.password, user.password);
@@ -42,5 +40,18 @@ export default class LoginService implements ValidateBody {
     const result = await authService.token(user?.email);
 
     return result;
+  }
+
+  async getRole(authorization: string):Promise<object | string | undefined> {
+    if (!authorization) return throwInvalidError('Invalid Token');
+
+    const decoded = await authService.decode(authorization) as Decoded;
+
+    const user = await this.model.findOne({
+      where: { email: decoded.data } });
+
+    const role = { role: user?.role };
+
+    return role;
   }
 }
