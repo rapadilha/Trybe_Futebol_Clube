@@ -4,6 +4,7 @@ const errors: Record<string, number> = {
   invalidTokenError: 400,
   invalidError: 401,
   'string.empty': 400,
+  teamsInvalid: 400,
 };
 
 interface Ierror{

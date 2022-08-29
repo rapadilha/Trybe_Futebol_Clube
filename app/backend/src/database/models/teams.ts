@@ -3,10 +3,8 @@ import db from '.';
 
 class Teams extends Model {
   public id: number;
-  public email:string;
-  public password:string;
-  public role:string;
-  public username:string;
+  public teamName:string;
+  public dataValues:object;
 }
 
 Teams.init({
