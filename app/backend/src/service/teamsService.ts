@@ -14,4 +14,12 @@ export default class TeamsService implements TeamsBody {
 
     return teamList;
   }
+
+  async getTeamsId(id: string): Promise<object | string> {
+    const team = await this.model.findOne({ where: { id } });
+
+    if (!team) return throwTeamsError('Teams not exist');
+
+    return team;
+  }
 }
