@@ -10,9 +10,8 @@ export default class MatchesService implements MatchesBody {
       include: [
         { model: Teams, as: 'teamHome', attributes: { exclude: ['id'] } },
         { model: Teams, as: 'teamAway', attributes: { exclude: ['id'] } },
-      ] });
-
-    console.log(matches);
+      ],
+      attributes: { exclude: ['home_team', 'away_team'] } });
 
     return matches;
   }
