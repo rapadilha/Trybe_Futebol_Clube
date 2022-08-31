@@ -15,4 +15,24 @@ export default class MatchesService implements MatchesBody {
 
     return matches;
   }
+
+  async getInProgress(query: string | undefined): Promise< object | string> {
+    const matchesTrue = await this.model.findAll({ where: { inProgress: true },
+      include: [
+        { model: Teams, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: Teams, as: 'teamAway', attributes: { exclude: ['id'] } },
+      ],
+      attributes: { exclude: ['home_team', 'away_team'] } });
+
+    const matchesFalse = await this.model.findAll({ where: { inProgress: false },
+      include: [
+        { model: Teams, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: Teams, as: 'teamAway', attributes: { exclude: ['id'] } },
+      ],
+      attributes: { exclude: ['home_team', 'away_team'] } });
+
+    if (query === 'false') return matchesFalse;
+
+    return matchesTrue;
+  }
 }
