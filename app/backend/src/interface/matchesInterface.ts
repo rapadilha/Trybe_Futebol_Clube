@@ -4,6 +4,7 @@ export default interface MatchesBody {
   createMatch(props: CreateMatch): Promise<object | string>
   finishMatch(props: string): Promise<object>
   validateToken(props: string): Promise<boolean | string>
+  updateMatchGoals(props: string, body: CreateMatch): Promise<object>
 }
 
 interface CreateMatch {

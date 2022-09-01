@@ -74,4 +74,11 @@ export default class MatchesService implements MatchesBody {
 
     return true;
   }
+
+  async updateMatchGoals(id: string, body: CreateMatch): Promise<object> {
+    const { homeTeamGoals, awayTeamGoals } = body;
+    await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+
+    return { message: 'Gooool' };
+  }
 }

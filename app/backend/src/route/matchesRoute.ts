@@ -13,4 +13,6 @@ matchesRouter.post('/', (req, res, next) => matchesController.post(req, res, nex
 
 matchesRouter.patch('/:id/finish', (req, res, next) => matchesController.patch(req, res, next));
 
+matchesRouter.patch('/:id', (req, res, next) => matchesController.patchGoals(req, res, next));
+
 export default matchesRouter;

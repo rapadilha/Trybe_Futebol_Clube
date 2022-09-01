@@ -49,4 +49,16 @@ export default class MatchesController {
       next(error);
     }
   }
+
+  async patchGoals(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const gol = await this.matchesService.updateMatchGoals(id, req.body);
+      console.log(gol);
+
+      res.status(200).json(gol);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
