@@ -1,6 +1,6 @@
 import Teams from '../database/models/teams';
 import Matches from '../database/models/matches';
-import MatchesBody from '../interface/matchesInterface';
+import MatchesBody, { CreateMatch } from '../interface/matchesInterface';
 
 export default class MatchesService implements MatchesBody {
   constructor(private model = Matches) {}
@@ -34,5 +34,17 @@ export default class MatchesService implements MatchesBody {
     if (query === 'false') return matchesFalse;
 
     return matchesTrue;
+  }
+
+  async createMatch(body: CreateMatch): Promise<object> {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = body;
+    const create = await this.model.create({
+      homeTeam,
+      homeTeamGoals,
+      awayTeam,
+      awayTeamGoals,
+      inProgress: true });
+
+    return create;
   }
 }

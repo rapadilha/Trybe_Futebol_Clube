@@ -20,16 +20,16 @@ export default class MatchesController {
     }
   }
 
-  // async getInProgress(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const query = req.query.inProgress as string | undefined;
-  //     if (query !== undefined) {
-  //       const matches = await this.matchesService.getInProgress(query);
+  async post(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { authorization } = req.headers;
+      if (authorization !== undefined) {
+        const create = await this.matchesService.createMatch(req.body);
 
-  //       res.status(200).json(matches);
-  //     }
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+        res.status(201).json(create);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 }

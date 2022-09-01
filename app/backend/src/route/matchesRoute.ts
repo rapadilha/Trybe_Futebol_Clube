@@ -7,9 +7,8 @@ const matchesRouter = Router();
 const matchesService = new MatchesService();
 const matchesController = new MatchesController(matchesService);
 
-// matchesRouter.get('/inProgress=?', (req, res, next) =>
-//   matchesController.getInProgress(req, res, next));
-
 matchesRouter.get('/', (req, res, next) => matchesController.get(req, res, next));
+
+matchesRouter.post('/', (req, res, next) => matchesController.post(req, res, next));
 
 export default matchesRouter;
