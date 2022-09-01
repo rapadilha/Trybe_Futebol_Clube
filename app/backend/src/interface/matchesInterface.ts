@@ -3,6 +3,7 @@ export default interface MatchesBody {
   getInProgress(props: string | undefined): Promise<object | string>
   createMatch(props: CreateMatch): Promise<object | string>
   finishMatch(props: string): Promise<object>
+  validateToken(props: string): Promise<boolean | string>
 }
 
 interface CreateMatch {

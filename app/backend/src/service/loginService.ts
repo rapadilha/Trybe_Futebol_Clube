@@ -43,7 +43,7 @@ export default class LoginService implements ValidateBody {
   }
 
   async getRole(authorization: string):Promise<object | string | undefined> {
-    if (!authorization) return throwInvalidError('Invalid Token');
+    if (!authorization) return throwInvalidError('Token must be a valid token');
 
     const decoded = await authService.decode(authorization) as Decoded;
 

@@ -5,6 +5,7 @@ const errors: Record<string, number> = {
   invalidError: 401,
   'string.empty': 400,
   teamsInvalid: 400,
+  teamsNoExistError: 404,
 };
 
 interface Ierror{
@@ -20,7 +21,11 @@ const errorHandler = (
   res: Response,
   _next: NextFunction,
 ) => {
-  // console.log(error);
+  // console.log(error.message, '>>>', error.name);
+
+  if (error.name === 'JsonWebTokenError') {
+    return res.status(401).json({ message: 'Token must be a valid token' });
+  }
 
   if (error.isJoi) {
     const statusJoi = errors[error.details[0].type];

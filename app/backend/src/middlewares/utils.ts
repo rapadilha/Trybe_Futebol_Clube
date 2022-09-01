@@ -16,6 +16,12 @@ const throwTeamsError = (message: string): string => {
   throw err;
 };
 
-export { throwInvalidError, throwTeamsError };
+const throwTeamsNoExistError = (message: string): string => {
+  const err = new Error(message);
+  err.name = 'teamsNoExistError';
+  throw err;
+};
+
+export { throwInvalidError, throwTeamsError, throwTeamsNoExistError };
 
 export default throwInvalidTokenError;

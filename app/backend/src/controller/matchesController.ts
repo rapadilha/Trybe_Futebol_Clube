@@ -23,7 +23,10 @@ export default class MatchesController {
   async post(req: Request, res: Response, next: NextFunction) {
     try {
       const { authorization } = req.headers;
+
       if (authorization !== undefined) {
+        await this.matchesService.validateToken(authorization);
+
         const create = await this.matchesService.createMatch(req.body);
 
         res.status(201).json(create);
@@ -35,10 +38,13 @@ export default class MatchesController {
 
   async patch(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
-      const finish = await this.matchesService.finishMatch(id);
+      const { authorization } = req.headers;
+      if (authorization !== undefined) {
+        const { id } = req.params;
+        const finish = await this.matchesService.finishMatch(id);
 
-      res.status(200).json(finish);
+        res.status(200).json(finish);
+      }
     } catch (error) {
       next(error);
     }
