@@ -32,4 +32,15 @@ export default class MatchesController {
       next(error);
     }
   }
+
+  async patch(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const finish = await this.matchesService.finishMatch(id);
+
+      res.status(200).json(finish);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
