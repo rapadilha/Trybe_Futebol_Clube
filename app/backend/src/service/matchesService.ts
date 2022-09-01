@@ -1,3 +1,4 @@
+import { throwInvalidError } from '../middlewares/utils';
 import Teams from '../database/models/teams';
 import Matches from '../database/models/matches';
 import MatchesBody, { CreateMatch } from '../interface/matchesInterface';
@@ -36,8 +37,13 @@ export default class MatchesService implements MatchesBody {
     return matchesTrue;
   }
 
-  async createMatch(body: CreateMatch): Promise<object> {
+  async createMatch(body: CreateMatch): Promise<object | string> {
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = body;
+    if (homeTeam === awayTeam) {
+      return throwInvalidError(
+        'It is not possible to create a match with two equal teams',
+      );
+    }
     const create = await this.model.create({
       homeTeam,
       homeTeamGoals,

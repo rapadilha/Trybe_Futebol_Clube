@@ -1,7 +1,7 @@
 export default interface MatchesBody {
   getMatches(): Promise<object | string>
   getInProgress(props: string | undefined): Promise<object | string>
-  createMatch(props: CreateMatch): Promise<object>
+  createMatch(props: CreateMatch): Promise<object | string>
   finishMatch(props: string): Promise<object>
 }
 
