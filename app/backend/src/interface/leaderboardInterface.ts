@@ -1,11 +1,13 @@
 export default interface LeaderBorardBody {
   leaderBoard(): Promise<object>
   leaderBoardAway(): Promise<object>
+  fullLeaderBoard(): Promise<object>
 }
 
 interface LeadeBoard {
   name: string
   totalPoints: number
+  totalGames: number
   totalVictories: number
   totalDraws: number
   totalLosses: number

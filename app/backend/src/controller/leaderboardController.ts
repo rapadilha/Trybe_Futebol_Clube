@@ -21,4 +21,13 @@ export default class LeaderBoardController {
       next(error);
     }
   }
+
+  async getFull(req: Request, res: Response, next: NextFunction) {
+    try {
+      const response = await this.leaderboardService.fullLeaderBoard();
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
