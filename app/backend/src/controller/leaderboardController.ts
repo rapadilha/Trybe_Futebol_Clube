@@ -12,4 +12,13 @@ export default class LeaderBoardController {
       next(error);
     }
   }
+
+  async getAway(req: Request, res: Response, next: NextFunction) {
+    try {
+      const response = await this.leaderboardService.leaderBoardAway();
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

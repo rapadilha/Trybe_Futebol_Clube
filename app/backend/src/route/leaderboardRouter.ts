@@ -7,7 +7,7 @@ const leaderboardRouter = Router();
 const leaderboardService = new LeaderBoardService();
 const leaderboardController = new LeaderBoardController(leaderboardService);
 
-// leaderboardRouter.post('/', (req, res, next) => leaderboardController.post(req, res, next));
+leaderboardRouter.get('/away', (req, res, next) => leaderboardController.getAway(req, res, next));
 
 leaderboardRouter.get('/home', (req, res, next) => leaderboardController.get(req, res, next));
 

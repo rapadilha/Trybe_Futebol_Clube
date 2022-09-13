@@ -1,5 +1,6 @@
 export default interface LeaderBorardBody {
   leaderBoard(): Promise<object>
+  leaderBoardAway(): Promise<object>
 }
 
 interface LeadeBoard {

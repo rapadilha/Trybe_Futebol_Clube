@@ -19,26 +19,26 @@ const getInfoMatch = async () => {
 };
 
 const getMatchByTeamId = (id: number) => {
-  const match = getMatches.filter((matches) => matches.homeTeam === id);
+  const match = getMatches.filter((matches) => matches.awayTeam === id);
 
   return match;
 };
 
-const homePoints = (match: Matches) => {
-  if (match.homeTeamGoals > match.awayTeamGoals) {
-    points += 3;
-    victories += 1;
-  }
+// const homePoints = (match: Matches) => {
+//   if (match.homeTeamGoals > match.awayTeamGoals) {
+//     points += 3;
+//     victories += 1;
+//   }
 
-  if (match.homeTeamGoals === match.awayTeamGoals) {
-    points += 1;
-    draws += 1;
-  }
+//   if (match.homeTeamGoals === match.awayTeamGoals) {
+//     points += 1;
+//     draws += 1;
+//   }
 
-  if (match.homeTeamGoals < match.awayTeamGoals) {
-    losses += 1;
-  }
-};
+//   if (match.homeTeamGoals < match.awayTeamGoals) {
+//     losses += 1;
+//   }
+// };
 
 const awayPoints = (match: Matches) => {
   if (match.homeTeamGoals < match.awayTeamGoals) {
@@ -64,8 +64,7 @@ const tableData = (id: number) => {
   draws = 0;
   losses = 0;
   getMatch.map((match) => {
-    if (match.awayTeam === id) awayPoints(match);
-    if (match.homeTeam === id) homePoints(match);
+    awayPoints(match);
     return points;
   });
 
@@ -78,8 +77,8 @@ const goalsCount = (id: number) => {
   goalsOwn = 0;
   goalsBalance = 0;
   getMatch.map((match) => {
-    goalsFavor += match.homeTeamGoals;
-    goalsOwn += match.awayTeamGoals;
+    goalsFavor += match.awayTeamGoals;
+    goalsOwn += match.homeTeamGoals;
     goalsBalance = goalsFavor - goalsOwn;
     return goalsFavor;
   });
@@ -118,7 +117,7 @@ const leaderboard = () => {
   return table;
 };
 
-const homeTeamTable = async () => {
+const awayTeamTable = async () => {
   await getInfoMatch();
   const result = leaderboard();
 
@@ -131,4 +130,4 @@ const homeTeamTable = async () => {
 
   return result;
 };
-export default homeTeamTable;
+export default awayTeamTable;
